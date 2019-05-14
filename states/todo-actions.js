@@ -61,24 +61,14 @@ function endListTodos(todos) {
         todos
     };
 }
+
 function endListMoreTodos(todos) {
     return {
         type: '@TODO/END_LIST_MORE_TODOS',
         todos
     };
 }
-function endCreateTodo(todo) {
-    return {
-        type: '@TODO/END_CREATE_TODO',
-        todo
-    };
-}
-function endAccomplishTodo(todo) {
-    return {
-        type: '@TODO/END_ACCOMPLISH_TODO',
-        todo
-    };
-}
+
 export function listTodos(searchText, loading = false) {
     return (dispatch, getState) => {
         if (!loading)
@@ -86,20 +76,22 @@ export function listTodos(searchText, loading = false) {
 
         return listTodosFromApi(getState().todo.unaccomplishedOnly, searchText).then(todos => {
             dispatch(endListTodos(todos));
-            dispatch(endLoading());
         }).catch(err => {
             console.error('Error listing todos', err);
+            dispatch(endLoading());
+        }).then(() => {
             dispatch(endLoading());
         });
     }
 }
+
 export function listMoreTodos(searchText, start) {
     return (dispatch, getState) => {
         dispatch(startLoading());
         return listTodosFromApi(getState().todo.unaccomplishedOnly, searchText, start).then(todos => {
             dispatch(endListMoreTodos(todos));
         }).catch(err => {
-            console.error('Error listing more todos', err);
+            console.error('Error listing more posts', err);
         }).then(() => dispatch(endLoading()));
     };
 };
@@ -108,7 +100,7 @@ export function createTodo(mood, text) {
     return (dispatch, getState) => {
         dispatch(startLoading());
 
-        return createTodoFromApi(mood, text).then(todo => {
+        return createTodoFromApi(mood, text).then(() => {
             dispatch(listTodos(getState().searchText, true));
         }).catch(err => {
             console.error('Error creating todos', err);
@@ -121,7 +113,7 @@ export function accomplishTodo(id) {
     return (dispatch, getState) => {
         dispatch(startLoading(true));
 
-        return accomplishTodoFromApi(id).then(todo => {
+        return accomplishTodoFromApi(id).then(() => {
             dispatch(listTodos(getState().searchText, true));
         }).catch(err => {
             console.error('Error accomplishing todos', err);

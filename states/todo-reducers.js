@@ -64,33 +64,16 @@ export function todo(state = initTodoState, action) {
                 todos: action.todos,
                 hasMore: action.todos.length > 0
             };
+        case '@TODO/TOGGLE_UNACCOMPLISHED_ONLY':
+            return {
+                ...state,
+                unaccomplishedOnly: !state.unaccomplishedOnly
+            };
         case '@TODO/END_LIST_MORE_TODOS':
             return {
                 ...state,
                 todos: [...state.todos, ...action.todos],
                 hasMore: action.todos.length > 0
-            };
-        case '@POST/END_CREATE_TODO':
-            var newTodos = state.todos.slice();
-            newTodos.unshift(action.todo);
-            return {
-                ...state,
-                todos: newTodos
-            };
-        case '@TODO/END_ACCOMPLISH_TODO':
-            var newTodos = state.todos.map(p => {
-                if (p.id === action.todo.id)
-                    return action.todo;
-                return p;
-            });
-            return {
-                ...state,
-                todos: newTodos,
-            };
-        case '@TODO/TOGGLE_UNACCOMPLISHED_ONLY':
-            return {
-                ...state,
-                unaccomplishedOnly: !state.unaccomplishedOnly
             };
         default:
             return state;

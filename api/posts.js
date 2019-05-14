@@ -7,7 +7,7 @@ import axios from 'axios';
 // const postBaseUrl = 'http://weathermood-staging.us-west-2.elasticbeanstalk.com/api';
 
 // Production server URL
-const postBaseUrl = 'http://weathermood-6-new-dev.us-west-2.elasticbeanstalk.com/api';
+const postBaseUrl = 'http://test-2-again.us-west-2.elasticbeanstalk.com/api';
 
 export function listPosts(searchText = '', start) {
     let url = `${postBaseUrl}/posts`;

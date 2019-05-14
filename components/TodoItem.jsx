@@ -10,7 +10,7 @@ import './TodoItem.css';
 
 class TodoItem extends React.Component {
     static propTypes = {
-        id: PropTypes.number,
+        id: PropTypes.string,
         mood: PropTypes.string,
         text: PropTypes.string,
         ts: PropTypes.number,

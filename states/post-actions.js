@@ -150,7 +150,7 @@ export function toggleTooltip(id) {
 
 export function setTooltipToggle(id, toggle) {
     return {
-        type: '@POST_ITEM/SET_TOOLTIP_TOGGLE',
+        type: '@POST_ITEM/TOGGLE_TOOLTIP',
         id,
         toggle
     };

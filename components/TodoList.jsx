@@ -7,18 +7,17 @@ import {
 } from 'reactstrap';
 import InfiniteScroll from 'react-infinite-scroller';
 import TodoItem from 'components/TodoItem.jsx';
-import {listMoreTodos} from 'states/todo-actions.js';
 import './TodoList.css';
+import {listMoreTodos} from 'states/todo-actions.js';
 
 class TodoList extends React.Component {
     static propTypes = {
-        todos: PropTypes.array,
-        hasMore: PropTypes.bool
+        todos: PropTypes.array
     };
 
     constructor(props) {
         super(props);
-
+        
         this.handleScroll = this.handleScroll.bind(this);
     }
 
@@ -48,6 +47,7 @@ class TodoList extends React.Component {
             </div>
         );
     }
+
     handleScroll(page) {
         const {todos, searchText} = this.props;
         this.props.dispatch(listMoreTodos(searchText, todos[todos.length - 1].id));
@@ -55,7 +55,7 @@ class TodoList extends React.Component {
 }
 
 export default connect(state => ({
-    todos: state.todo.todos,
-    hasMore: state.todo.hasMore,
-    searchText: state.searchText
-}))(TodoList);
+        todos: state.todo.todos,
+        hasMore: state.todo.hasMore,
+        searchText: state.searchText
+    }))(TodoList);
